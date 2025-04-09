@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "author": "Carlos Monteiro",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp32_main",
+      "top": -65.2,
+      "left": 160,
+      "attrs": { "env": "micropython-20231227-v1.22.0" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "sensor_clima",
+      "top": 52.8,
+      "left": 375.9,
+      "rotate": 270,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_water",
+      "top": -172.6,
+      "left": -28.8,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "sensor_luz",
+      "top": -25.6,
+      "left": 327.2,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_lamps",
+      "top": -40.2,
+      "left": -28.8,
+      "attrs": {}
+    },
+    { "type": "wokwi-relay-module", "id": "relay_fans", "top": 105.8, "left": -28.8, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text_water",
+      "top": -200.2,
+      "left": -18.8,
+      "attrs": { "text": "IRRIGAÇÃO" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_lamps",
+      "top": -65.2,
+      "left": -58.8,
+      "attrs": { "text": "ILUMINAÇÃO" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_fans",
+      "top": 74.8,
+      "left": -18.8,
+      "attrs": { "text": "VENTILAÇÃO" }
+    },
+    { "type": "wokwi-vcc", "id": "source_vcc", "top": -240.2, "left": -78.8, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "source_gnd", "top": 179.8, "left": -78.8, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp32_main:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp32_main:RX", "$serialMonitor:TX", "", [] ],
+    [ "sensor_luz:VCC", "esp32_main:3V3", "red", [ "h0" ] ],
+    [ "sensor_luz:AO", "esp32_main:34", "yellow", [ "h48", "v8.9" ] ],
+    [ "relay_water:VCC", "source_vcc:VCC", "red", [ "h0" ] ],
+    [ "relay_lamps:VCC", "source_vcc:VCC", "red", [ "h0" ] ],
+    [ "relay_fans:VCC", "source_vcc:VCC", "red", [ "h0" ] ],
+    [ "relay_fans:GND", "source_gnd:GND", "black", [ "h0" ] ],
+    [ "relay_lamps:GND", "source_gnd:GND", "black", [ "h0" ] ],
+    [ "relay_water:GND", "source_gnd:GND", "black", [ "h0" ] ],
+    [ "sensor_clima:GND", "esp32_main:GND.1", "black", [ "h19.2", "v114.8" ] ],
+    [ "sensor_clima:SDA", "esp32_main:14", "limegreen", [ "h57.6", "v-9.7" ] ],
+    [ "sensor_clima:VCC", "esp32_main:3V3", "red", [ "h9.6", "v-124.8" ] ],
+    [ "esp32_main:25", "relay_water:IN", "blue", [ "h-9.45", "v-153.4" ] ],
+    [ "esp32_main:26", "relay_lamps:IN", "orange", [ "h-9.45", "v105.6", "h192", "v-134.2" ] ],
+    [ "esp32_main:27", "relay_fans:IN", "cyan", [ "h-19.05", "v105.6" ] ]
+  ],
+  "dependencies": {}
+}
